@@ -1,5 +1,7 @@
 import pandas as pd
 
+from reclaim.static_features.utils import compute_catchment_aggregate
+
 def catchment_based_static_features(
     ca: float,
     dca: float,

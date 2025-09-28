@@ -1,5 +1,5 @@
 import numpy as np
-from shapely.ops import transform,
+from shapely.ops import transform
 
 def calculate_length_area_meters(geometry, area= True):
     """

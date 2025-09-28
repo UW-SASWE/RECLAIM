@@ -2,9 +2,9 @@ import pandas as pd
 from shapely.geometry import Point, Polygon
 
 # Import utils
-from utils.flow_length import find_actual_flow_path
-from utils.area_perimeter import calculate_length_area_meters
-from utils.aec_shape import concavity_index, mean_curvature, mean_slope
+from reclaim.static_features.utils.flow_length import find_actual_flow_path
+from reclaim.static_features.utils.area_perimeter import calculate_length_area_meters
+from reclaim.static_features.utils.aec_shape import concavity_index, mean_curvature, mean_slope
 
 
 def reservoir_based_static_features(

@@ -2,11 +2,11 @@ import pandas as pd
 import numpy as np
 from typing import Dict, Sequence
 
-from utils.rainfall import (
+from reclaim.dynamic_features.utils.rainfall import (
     mean_annual_rainfall_mm,
     mean_annual_rainy_days,
 )
-from utils.statistical_metrics import (
+from reclaim.dynamic_features.utils.statistical_metrics import (
     annual_mean,
     annual_std,
     coefficient_of_variation,
