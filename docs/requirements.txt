@@ -1,2 +1,10 @@
 sphinx
 sphinx-rtd-theme
+numpy
+pandas
+geopandas
+networkx
+shapely
+regionmask
+xarray
+scipy

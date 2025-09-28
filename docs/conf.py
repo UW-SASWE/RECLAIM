@@ -2,7 +2,7 @@ import os
 import sys
 
 # Point to src directory (adjust if different)
-sys.path.insert(0, os.path.abspath("../src"))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
 project = "RECLAIM"
 author = "Sanchit Minocha"
