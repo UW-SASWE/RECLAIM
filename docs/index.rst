@@ -6,11 +6,3 @@ Welcome to RECLAIM’s documentation!
    :caption: Contents:
 
    modules
-
-API Reference
-=============
-
-.. automodule:: reclaim
-   :members:
-   :undoc-members:
-   :show-inheritance:
