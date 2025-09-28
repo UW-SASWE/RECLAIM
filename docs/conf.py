@@ -1,6 +1,8 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath(".."))
+
+# Point to src directory (adjust if different)
+sys.path.insert(0, os.path.abspath(os.path.join("..", "src", "reclaim")))
 
 project = "RECLAIM"
 author = "Your Name"
