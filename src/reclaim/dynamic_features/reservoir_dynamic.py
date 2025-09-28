@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from typing import Dict, Sequence, Union, Callable
 
-from utils.statistical_metrics import (
+from reclaim.dynamic_features.utils.statistical_metrics import (
     annual_mean,
     annual_std,
     skewness,
@@ -12,13 +12,13 @@ from utils.statistical_metrics import (
     max_days_above_90th,
     max_annual_persistence
 )
-from utils.inflow_outflow import (
+from reclaim.dynamic_features.utils.inflow_outflow import (
     mean_annual_flow_m3_per_s,
     mean_annual_flow_std_m3_per_s,
     max_annual_flow_m3_per_s,
     mean_annual_flow_variability
 )
-from utils.ts_aggregate import compute_ts_aggregate
+from reclaim.dynamic_features.utils.ts_aggregate import compute_ts_aggregate
 
 def reservoir_based_dynamic_features(
     variable_info: Dict[str, Dict[str, str]],

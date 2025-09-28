@@ -13,7 +13,7 @@ from reclaim.dynamic_features.utils.statistical_metrics import (
     skewness,
     kurtosis_val,
 )
-from utils.ts_aggregate import compute_ts_aggregate
+from reclaim.dynamic_features.utils.ts_aggregate import compute_ts_aggregate
 
 
 def catchment_based_dynamic_features(

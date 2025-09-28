@@ -1,6 +1,6 @@
 import pandas as pd
 
-from reclaim.static_features.utils import compute_catchment_aggregate
+from reclaim.static_features.utils.catchment_agreggate import compute_catchment_aggregate
 
 def catchment_based_static_features(
     ca: float,

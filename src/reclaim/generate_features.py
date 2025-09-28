@@ -4,11 +4,11 @@ from typing import Dict, List
 import pandas as pd
 
 # Import from your package structure
-from static_features.reservoir_static import reservoir_based_static_features
-from static_features.catchment_static import catchment_based_static_features
-from dynamic_features.reservoir_dynamic import reservoir_based_dynamic_features
-from dynamic_features.catchment_dynamic import catchment_based_dynamic_features
-from derived_features.feature_engineering_and_transformation import engineer_and_transform_features
+from reclaim.static_features.reservoir_static import reservoir_based_static_features
+from reclaim.static_features.catchment_static import catchment_based_static_features
+from reclaim.dynamic_features.reservoir_dynamic import reservoir_based_dynamic_features
+from reclaim.dynamic_features.catchment_dynamic import catchment_based_dynamic_features
+from reclaim.derived_features.feature_engineering_and_transformation import engineer_and_transform_features
 
 
 def create_features_per_row(
