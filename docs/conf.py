@@ -2,10 +2,10 @@ import os
 import sys
 
 # Point to src directory (adjust if different)
-sys.path.insert(0, os.path.abspath(os.path.join("../src")))
+sys.path.insert(0, os.path.abspath("../src"))
 
 project = "RECLAIM"
-author = "Your Name"
+author = "Sanchit Minocha"
 release = "0.1.0"
 
 extensions = [
