@@ -1,5 +1,5 @@
-RECLAIM Ensemble for Sedimentation Rate Prediction
-==================================================
+RECLAIM Ensemble
+=================
 
 RECLAIM integrates three gradient boosting models—XGBoost, LightGBM, and CatBoost—into a weighted ensemble to improve the accuracy and robustness of sedimentation rate (SR) predictions.
 
@@ -30,25 +30,25 @@ To leverage complementary strengths of the models, RECLAIM uses a **dynamic weig
 
 Weights are smoothed using sigmoid functions to ensure gradual transitions. This scheme emphasizes the most reliable model in each regime while retaining contributions from all three algorithms.
 
-Figures and Tables
-------------------
-
-**Figure:** Residual patterns of individual models across validation data, and comparison of RECLAIM predictions with observed SR values (training, validation, and test sets).  
-
 .. image:: _static/reclaim_ensemble_performance.jpg
    :alt: RECLAIM ensemble predictions vs observed SR
    :align: center
+
+**Figure:** Residual patterns of individual models across validation data, and comparison of RECLAIM predictions with observed SR values (training, validation, and test sets).
+
+Performance
+------------------
 
 **Performance Metrics:** RMSE, MAE, and R² for RECLAIM across different datasets.  
 
 +------------+---------------------------+----------------------------+---------------------------+
 | Data Split | RMSE (MCM/year)           | MAE (MCM/year)             | R²                        |
 +============+===========================+============================+===========================+
-| Train      | 3.45                      | 1.0                        | 0.95                       |
+| Train      | 3.45                      | 1.0                        | 0.95                      |
 +------------+---------------------------+----------------------------+---------------------------+
-| Validation | 3.57                      | 1.15                       | 0.89                       |
+| Validation | 3.57                      | 1.15                       | 0.89                      |
 +------------+---------------------------+----------------------------+---------------------------+
-| Test       | 4.44                      | 1.65                       | 0.86                       |
+| Test       | 4.44                      | 1.65                       | 0.86                      |
 +------------+---------------------------+----------------------------+---------------------------+
 
 Notes
