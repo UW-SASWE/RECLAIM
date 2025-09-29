@@ -9,8 +9,6 @@ Subpackages
 
    reclaim.dynamic_features.utils
 
-Submodules
-----------
 
 reclaim.dynamic\_features.catchment\_dynamic module
 ---------------------------------------------------

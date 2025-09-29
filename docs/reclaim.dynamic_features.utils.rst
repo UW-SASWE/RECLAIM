@@ -1,8 +1,6 @@
 reclaim.dynamic\_features.utils package
 =======================================
 
-Submodules
-----------
 
 reclaim.dynamic\_features.utils.catchment\_meteorology module
 -------------------------------------------------------------

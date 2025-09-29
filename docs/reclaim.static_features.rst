@@ -9,8 +9,6 @@ Subpackages
 
    reclaim.static_features.utils
 
-Submodules
-----------
 
 reclaim.static\_features.catchment\_static module
 -------------------------------------------------

@@ -11,8 +11,6 @@ Subpackages
    reclaim.dynamic_features
    reclaim.static_features
 
-Submodules
-----------
 
 reclaim.generate\_features module
 ---------------------------------

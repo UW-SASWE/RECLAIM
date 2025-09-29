@@ -1,8 +1,6 @@
 reclaim.static\_features.utils package
 ======================================
 
-Submodules
-----------
 
 reclaim.static\_features.utils.aec\_shape module
 ------------------------------------------------

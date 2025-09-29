@@ -1,9 +1,6 @@
 reclaim.derived\_features package
 =================================
 
-Submodules
-----------
-
 reclaim.derived\_features.feature\_engineering\_and\_transformation module
 --------------------------------------------------------------------------
 
