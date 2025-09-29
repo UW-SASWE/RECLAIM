@@ -19,7 +19,7 @@ Contents
 
 Overview
 --------
-The RECLAIM package provides a stacked ensemble predictor for reservoir sedimentation rate (SR) by combining XGBoost, LightGBM, and CatBoost base models with a meta-model. It also includes utilities to generate features from static and dynamic reservoir and catchment data.
+The RECLAIM python package provides a stacked ensemble predictor for reservoir sedimentation rate (SR) by combining XGBoost, LightGBM, and CatBoost base models with a powerful ensemble. It also includes utilities to generate features from static and dynamic reservoir and catchment data.
 
 1. Generating Features
 ---------------------
