@@ -36,8 +36,9 @@ def catchment_based_static_features(
     pd.DataFrame
         A single-row DataFrame with abbreviations as columns:
         - CA, DCA, LCAS, LCC, LCG, LCT, LCS, LCHV, LCM, LCSV,
-          LCBS, LCSG, LCWB, DLC, COAR, SAND, SILT, CLAY, BULK,
-          ELEV, SLOP, CURV, ASP, HILL, VGF, VLF
+        LCBS, LCSG, LCWB, DLC, COAR, SAND, SILT, CLAY, BULK,
+        ELEV, SLOP, CURV, ASP, HILL, VGF, VLF
+        
     """
 
     features = {"CA": ca, "DCA": dca}

@@ -29,12 +29,12 @@ def reservoir_based_dynamic_features(
     surface area, evaporation, and sediment-related time series.
 
     Required time series keys (case-sensitive):
-        - "inflow":       Daily inflow in m³/day
-        - "outflow":      Daily outflow in m³/day
-        - "evaporation":  Daily evaporation in mm/day
-        - "surface_area": Reservoir surface area in km²
-        - "nssc":         Normalized suspended sediment concentration variant 1 (red/green) (dimensionless)
-        - "nssc2":        Normalized suspended sediment concentration variant 2 (near-infrared/red)(dimensionless)
+    - "inflow":       Daily inflow in m³/day
+    - "outflow":      Daily outflow in m³/day
+    - "evaporation":  Daily evaporation in mm/day
+    - "surface_area": Reservoir surface area in km²
+    - "nssc":         Normalized suspended sediment concentration variant 1 (red/green) (dimensionless)
+    - "nssc2":        Normalized suspended sediment concentration variant 2 (near-infrared/red) (dimensionless)
 
     Parameters
     ----------

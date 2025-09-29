@@ -25,10 +25,10 @@ def catchment_based_dynamic_features(
     using precipitation, temperature, and wind speed time series.
 
     Required time series keys (case-sensitive):
-        - "precip":  Daily precipitation in mm
-        - "tmin":    Daily minimum temperature in °C
-        - "tmax":    Daily maximum temperature in °C
-        - "wind":    Daily wind speed in m/s
+    - "precip":  Daily precipitation in mm
+    - "tmin":    Daily minimum temperature in °C
+    - "tmax":    Daily maximum temperature in °C
+    - "wind":    Daily wind speed in m/s
 
     Parameters
     ----------
