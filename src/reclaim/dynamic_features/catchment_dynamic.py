@@ -21,32 +21,26 @@ def catchment_based_dynamic_features(
     observation_period: Sequence[int],
 ) -> pd.DataFrame:
     """
-    Compute dynamic catchment-based features for a single reservoir's catchment
+    Compute dynamic catchment-based features for a single reservoir's catchment,
     using precipitation, temperature, and wind speed time series.
 
-    Required time series keys (case-sensitive):
-
-    - ``precip``:  Daily precipitation in mm
-    - ``tmin``:    Daily minimum temperature in °C
-    - ``tmax``:    Daily maximum temperature in °C
-    - ``wind``:    Daily wind speed in m/s
+    Required time series keys (case-sensitive)
+        - "precip":  Daily precipitation in mm
+        - "tmin":    Daily minimum temperature in °C
+        - "tmax":    Daily maximum temperature in °C
+        - "wind":    Daily wind speed in m/s
 
     Parameters
     ----------
     variable_info : dict
         Dictionary of input series metadata.
-        Each key corresponds to a variable (``precip``, ``tmin``, ``tmax``, ``wind``).
+        Each key corresponds to a variable (precip, tmin, tmax, wind).
         Each value is a dict with:
-        {
-            "path": str,          # Path to the CSV file
-            "time_column": str,   # Name of the datetime column
-            "data_column": str    # Name of the variable column
-        }
-        Example:
-        {
-            "precip": {"path": "catchment/precip.csv", "time_column": "time", "data_column": "precip"},
-            "tmin": {"path": "catchment/temp.csv", "time_column": "time", "data_column": "tmin"}
-        }
+            {
+                "path": str,
+                "time_column": str,
+                "data_column": str
+            }
 
     observation_period : sequence[int]
         Two-element sequence [OSY, OEY] specifying the observation period to clip the series.
@@ -55,16 +49,14 @@ def catchment_based_dynamic_features(
     -------
     pd.DataFrame
         A one-row DataFrame containing the computed catchment-based features.
-        Missing variables in ``variable_info`` will result in NaN values for their features.
 
     Notes
     -----
     - Precipitation features are reported as mm/year (for MAR) and counts (rainy days).
     - Wind statistics include mean, std, CV, skewness, kurtosis.
     - Temperature features are simple annual means (°C).
-    - If a variable is missing in ``variable_info``, its corresponding features are NaN.
     """
-
+    
     variable_features = {
         "precip": {
             "MAR": mean_annual_rainfall_mm,
