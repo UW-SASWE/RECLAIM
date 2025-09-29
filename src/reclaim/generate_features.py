@@ -27,7 +27,7 @@ def create_features_per_row(
         Parameters for reservoir_based_static_features(). Expected keys:
             - obc : float, Original Built Capacity (MCM)
             - hgt : float, Dam Height (m)
-            - mrb : str, Major River Basin
+            - mrb : str, Major River Basin, optional
             - lat : float, Latitude (deg)
             - lon : float, Longitude (deg)
             - reservoir_polygon : shapely.geometry.Polygon

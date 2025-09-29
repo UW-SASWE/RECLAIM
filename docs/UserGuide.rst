@@ -1,21 +1,21 @@
-RECLAIM Package User Guide
-==========================
+User Guide
+===========
 
 This guide provides step-by-step instructions to generate features for reservoirs and catchments, load pretrained RECLAIM models, and predict sedimentation rates (SR) using the ensemble model or individual base models.
 
 Contents
 --------
 - Overview
-- 1. Generating Features
-  - 1.1 Single Reservoir
-  - 1.2 Multiple Reservoirs
-- 2. Loading Pretrained RECLAIM Model
-- 3. Making Predictions
-  - 3.1 Predicting with Ensemble
-  - 3.2 Using Base Models
-- 4. Evaluating Predictions
-- 5. Saving and Loading Custom Trained Models
-- 6. Example Workflow
+- 1. Generating Features  
+  - 1.1 Single Reservoir  
+  - 1.2 Multiple Reservoirs  
+- 2. Loading Pretrained RECLAIM Model  
+- 3. Making Predictions  
+  - 3.1 Predicting with Ensemble  
+  - 3.2 Using Base Models  
+- 4. Evaluating Predictions  
+- 5. Saving and Loading Custom Trained Models  
+- 6. Example Workflow  
 
 Overview
 --------
@@ -24,7 +24,8 @@ The RECLAIM package provides a stacked ensemble predictor for reservoir sediment
 1. Generating Features
 ---------------------
 
-### 1.1 Single Reservoir
+1.1 Single Reservoir
+````````````````````
 
 To compute features for a single reservoir observation, use the `create_features_per_row` function in `generate_features.py`.
 
@@ -35,7 +36,7 @@ To compute features for a single reservoir observation, use the `create_features
 
   - `obc` : Original Built Capacity (MCM)  
   - `hgt` : Dam Height (m)  
-  - `mrb` : Major River Basin  
+  - `mrb` : Major River Basin  (optional)
   - `lat`, `lon` : Latitude & Longitude (degrees)  
   - `reservoir_polygon` : shapely Polygon  
   - `inlet_point` : shapely Point (optional)  
@@ -68,37 +69,37 @@ To compute features for a single reservoir observation, use the `create_features
 
 **Example**
 
-```python
-from reclaim.generate_features import create_features_per_row
+.. code-block:: python
+    from reclaim.generate_features import create_features_per_row
 
-reservoir_static = {
-    "obc": 150.0,
-    "hgt": 45.0,
-    "mrb": "Ganges",
-    "lat": 25.6,
-    "lon": 81.9,
-    "reservoir_polygon": reservoir_polygon,
-    "aec_df": aec_df
-}
+    reservoir_static = {
+        "obc": 150.0,
+        "hgt": 45.0,
+        "mrb": "Ganges",
+        "lat": 25.6,
+        "lon": 81.9,
+        "reservoir_polygon": reservoir_polygon,
+        "aec_df": aec_df
+    }
 
-catchment_static = {
-    "ca": 1200,
-    "dca": 50,
-    "catchment_geometry": catchment_geom,
-    "glc_share_path": "data/glc.nc",
-    "hwsd2_path": "data/soil.nc",
-    "hilda_veg_freq_path": "data/veg.nc",
-    "terrain_path": "data/terrain.nc"
-}
+    catchment_static = {
+        "ca": 1200,
+        "dca": 50,
+        "catchment_geometry": catchment_geom,
+        "glc_share_path": "data/glc.nc",
+        "hwsd2_path": "data/soil.nc",
+        "hilda_veg_freq_path": "data/veg.nc",
+        "terrain_path": "data/terrain.nc"
+    }
 
-features = create_features_per_row(
-    reservoir_static_params=reservoir_static,
-    catchment_static_params=catchment_static,
-    observation_period=[2000, 2020]
-)
+    features = create_features_per_row(
+        reservoir_static_params=reservoir_static,
+        catchment_static_params=catchment_static,
+        observation_period=[2000, 2020]
+    )
 
 1.2 Multiple Reservoirs
------------------------
+`````````````````````````
 
 For batch processing, use `create_features_multi` with a list of reservoir dictionaries.
 
@@ -144,7 +145,8 @@ By default, this loads the XGBoost, LightGBM, CatBoost models and metadata (feat
 3. Making Predictions
 ---------------------
 
-### 3.1 Predicting with Ensemble
+3.1 Predicting with Ensemble
+`````````````````````````
 
 The ensemble prediction uses dynamic, instance-wise weights based on CatBoost output.
 
@@ -164,17 +166,16 @@ The ensemble prediction uses dynamic, instance-wise weights based on CatBoost ou
 
 `weights` is a DataFrame showing the contribution of XGBoost, LightGBM, and CatBoost for each observation.
 
-### 3.2 Using Base Models
-
-You can also predict using individual base models:
+Or you can predict using simple average of individual base models:
 
 .. code-block:: python
 
-    pred_xgb = model.predict(features_df, log_transform=False, dynamic_weight=False, threshold=0)
-    pred_lgb = model.predict(features_df, log_transform=False, dynamic_weight=False, threshold=0)
-    pred_cat = model.predict(features_df, log_transform=False, dynamic_weight=False, threshold=0)
+    average_pred = model.predict(features_df, log_transform=False, dynamic_weight=False)
 
-Or explicitly select a model:
+3.2 Using Base Models
+`````````````````````````
+
+You can also predict explicitly using one of the base models:
 
 .. code-block:: python
 
