@@ -1,7 +1,11 @@
 RECLAIM
 =======
 
-Global Reservoir Inventory of Lost Storage by Sedimentation (RECLAIM)
+.. toctree::
+   :maxdepth: 2
+   :caption: HOME:
+
+   home
 
 Overview
 --------
