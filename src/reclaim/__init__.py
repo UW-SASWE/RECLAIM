@@ -1,4 +1,1 @@
-"""
-RECLAIM main package
-:no-index:
-"""
+""" RECLAIM package :no-index:"""

@@ -1,4 +1,1 @@
-"""
-Static features for RECLAIM
-:no-index:
-"""
+"""Static features for RECLAIM :no-index:"""

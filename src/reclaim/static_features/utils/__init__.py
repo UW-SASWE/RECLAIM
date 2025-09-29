@@ -1,4 +1,1 @@
-"""
-Utility functions to generate static features for RECLAIM input dataset.
-:no-index:
-"""
+"""Utility functions to generate static features for RECLAIM input dataset :no-index:"""

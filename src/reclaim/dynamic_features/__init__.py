@@ -1,4 +1,1 @@
-"""
-Dynamic features for RECLAIM
-:no-index:
-"""
+"""Dynamic features for RECLAIM :no-index:"""
