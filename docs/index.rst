@@ -19,4 +19,4 @@ Below is the documentation for all modules in the RECLAIM package.
    :maxdepth: 2
    :caption: API Reference:
 
-   modules
+   reclaim
