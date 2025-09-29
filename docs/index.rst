@@ -13,13 +13,10 @@ Contents
 --------
 
 
-API Reference
--------------
-
 Below is the documentation for all modules in the RECLAIM package.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Modules:
+   :caption: API Reference:
 
    modules
