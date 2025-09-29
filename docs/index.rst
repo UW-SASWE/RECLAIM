@@ -13,6 +13,12 @@ Contents
 
 .. toctree::
    :maxdepth: 2
+   :caption: Guide
+
+   UserGuide
+
+.. toctree::
+   :maxdepth: 2
    :caption: Data Description
 
    static_data_variables
@@ -28,6 +34,15 @@ Contents
    LightGBM
    CatBoost
    reclaim_ensemble_SR
+
+.. toctree::
+   :maxdepth: 2
+   :caption: MODEL Drivers
+
+   FI_XGBoost
+   FI_LightGBM
+   FI_CatBoost
+   FI_RECLAIM_ensemble
 
 .. toctree::
    :maxdepth: 2
