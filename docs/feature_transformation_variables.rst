@@ -6,8 +6,7 @@ Categorical variables such as **major river basin (MRB)** and **dominant land co
 For MRB, the HydroSHEDS-provided **HYBASID** was used as the unique identifier (Lehner et al., 2008).
 
 Several continuous variables exhibited high skewness, particularly those related to spatial dimensions (e.g., capacity, area, and length).  
-To address this, a **natural log transformation** was applied. The effect of this transformation is illustrated in Figure 4, where skewness reduction is shown for **original built capacity (OBC)** and **catchment area (CA)**.  
-The original abbreviations and variable names were retained after transformation to ensure consistency across tables and figures.
+To address this, a **natural log transformation** was applied. The original abbreviations and variable names were retained after transformation to ensure consistency across tables and figures.
 
 Additionally, negative values of **sedimentation rate (SR)**—which can arise from sediment management interventions or short observation periods (Minocha and Hossain, 2025a)—were replaced with small nonzero values  
 (0 MCM/year). This adjustment ensures that the models do not attempt to learn physically implausible negative values, while still preserving the integrity of the dataset.
