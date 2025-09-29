@@ -22,7 +22,7 @@ The table below summarizes all static reservoir and catchment features used in R
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | P4  | Latitude                           | LAT     | Geographical latitude of the impoundment                                 | degree                   |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
-| P5  | Longitude                          | LON     | Geographical longitude of the impoundment                                  degree                   |
+| P5  | Longitude                          | LON     | Geographical longitude of the impoundment                                | degree                   |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | P6  | Reservoir Area                     | RA      | Nominal surface area of reservoir estimated using reservoir polygon      | sq km                    |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
@@ -38,7 +38,8 @@ The table below summarizes all static reservoir and catchment features used in R
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | P12 | AEC Curvature                      | AECC    | Mean curvature of the area-elevation curve of the reservoir              | km²/m²                   |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
-| P13 | AEC Concavity Index                | AECI    | Ratio of area under straight line connecting min/max elevation to actual AEC | DL                   |
+| P13 | AEC Concavity Index                | AECI    | Ratio of area under straight line connecting min/max elevation to        | DL                       |
+|     |                                    |         | actual AEC                                                               |                          |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | P14 | Land Cover - Artificial Surfaces   | LCAS    | Percentage of catchment covered by artificial surfaces                   | %                        |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
