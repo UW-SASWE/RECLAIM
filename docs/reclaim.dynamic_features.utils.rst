@@ -44,10 +44,3 @@ reclaim.dynamic\_features.utils.ts\_aggregate module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
-
-.. automodule:: reclaim.dynamic_features.utils
-   :members:
-   :show-inheritance:
-   :undoc-members:

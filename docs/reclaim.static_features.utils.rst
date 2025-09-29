@@ -36,10 +36,3 @@ reclaim.static\_features.utils.flow\_length module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
-
-.. automodule:: reclaim.static_features.utils
-   :members:
-   :show-inheritance:
-   :undoc-members:

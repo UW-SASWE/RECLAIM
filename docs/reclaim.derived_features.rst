@@ -12,10 +12,4 @@ reclaim.derived\_features.feature\_engineering\_and\_transformation module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
 
-.. automodule:: reclaim.derived_features
-   :members:
-   :show-inheritance:
-   :undoc-members:

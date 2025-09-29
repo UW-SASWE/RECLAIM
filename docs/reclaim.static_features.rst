@@ -28,10 +28,4 @@ reclaim.static\_features.reservoir\_static module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
 
-.. automodule:: reclaim.static_features
-   :members:
-   :show-inheritance:
-   :undoc-members:

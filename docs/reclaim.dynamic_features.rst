@@ -27,11 +27,3 @@ reclaim.dynamic\_features.reservoir\_dynamic module
    :members:
    :show-inheritance:
    :undoc-members:
-
-Module contents
----------------
-
-.. automodule:: reclaim.dynamic_features
-   :members:
-   :show-inheritance:
-   :undoc-members:

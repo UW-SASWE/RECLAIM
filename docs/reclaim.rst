@@ -1,4 +1,4 @@
-reclaim package
+RECLAIM API
 ===============
 
 Subpackages
@@ -22,10 +22,3 @@ reclaim.generate\_features module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
-
-.. automodule:: reclaim
-   :members:
-   :show-inheritance:
-   :undoc-members:
