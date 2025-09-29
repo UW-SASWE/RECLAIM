@@ -4,12 +4,12 @@ import numpy as np
 def engineer_and_transform_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     Engineer and transform features in reservoir/catchment dataset.
-    
+
     Features are first engineered in raw space (linear), then log-transformations
     are applied in a single pass to avoid double-logging.
-    
-    Log-transformed columns are prefixed with 'log_' to clearly indicate their state.
-    
+
+    Log-transformed columns are prefixed with ``log_`` to clearly indicate their state.
+
     Required input columns (abbreviations):
         - CA, DCA, OBC, HGT, RA, RP, FL
         - SA_mean, SA_mean_clip, SA_std, SA_kurt

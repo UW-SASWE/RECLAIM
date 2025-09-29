@@ -107,14 +107,18 @@ def create_features_multi(
     Parameters
     ----------
     reservoirs_input : list of dict
-        Each element should be a dict with the following structure:
-        {
-            "reservoir_static_params": {...},   # dict for reservoir_based_static_features()
-            "catchment_static_params": {...},   # dict for catchment_based_static_features()
-            "reservoir_dynamic_info": {...},    # dict for reservoir_based_dynamic_features()
-            "catchment_dynamic_info": {...},    # dict for catchment_based_dynamic_features()
-            "observation_period": [OSY, OEY]    # list of int
-        }
+        Each element should be a dictionary with the following keys:
+        
+        - `reservoir_static_params` : dict
+            Parameters for `reservoir_based_static_features()`.
+        - `catchment_static_params` : dict
+            Parameters for `catchment_based_static_features()`.
+        - `reservoir_dynamic_info` : dict
+            Parameters for `reservoir_based_dynamic_features()`.
+        - `catchment_dynamic_info` : dict
+            Parameters for `catchment_based_dynamic_features()`.
+        - `observation_period` : list of int
+            Two-element list `[OSY, OEY]` specifying the observation period.
 
     Returns
     -------
