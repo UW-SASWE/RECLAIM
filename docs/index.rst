@@ -9,6 +9,16 @@ Contents
    :caption: HOME
 
    home
+   motivation
+
+.. toctree::
+   :maxdepth: 2
+   :caption: MODEL Description
+
+   XGBoost
+   LightGBM
+   CatBoost
+   reclaim_ensemble_SR
 
 .. toctree::
    :maxdepth: 2

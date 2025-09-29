@@ -20,6 +20,5 @@ Citation
 If you use RECLAIM in your work, please cite:
 
 .. epigraph::
-    * Minocha, S., Hossain, F., Zhao, J., & Istanbulluoglu, E.  
-    *RECLAIM: A Scalable Machine Learning Framework to Predict Global Reservoir Sedimentation and Capacity Loss from Satellite-based Earth Observations*.  
+    Minocha, S., Hossain, F., Zhao, J., & Istanbulluoglu, E. *RECLAIM: A Scalable Machine Learning Framework to Predict Global Reservoir Sedimentation and Capacity Loss from Satellite-based Earth Observations*.  
     Submitted to *Environmental Modelling and Software (EMS)*.
