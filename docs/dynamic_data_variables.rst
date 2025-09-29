@@ -1,7 +1,10 @@
 Dynamic Features
 ================
 
-Dynamic features capture temporal variability in hydrological, climatic, and catchment conditions that influence sedimentation processes over time.  
+DDynamic features capture the temporal variability in hydrological, climatic, and catchment conditions that influence sedimentation processes over time. These features were derived using the Reservoir Assessment Tool (RAT) 3.0, a scalable Python package that leverages satellite remote sensing to monitor reservoir water surface area, water level changes, and related hydrological variables. RAT enables the generation of time series for inflow, outflow, surface area, evaporation, and normalized suspended sediment concentration (NSSC) for each reservoir.  
+
+For detailed usage and documentation, please refer to the RAT repository and documentation: `RAT 3.0 Documentation <https://rat-satellitedams.readthedocs.io/en/latest/>`_.
+  
 
 Reservoir and Catchment Attributes
 ----------------------------------

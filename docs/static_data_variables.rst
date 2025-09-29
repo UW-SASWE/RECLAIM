@@ -64,7 +64,7 @@ The table below summarizes all static reservoir and catchment features used in R
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | P24 | Land Cover - Water Bodies          | LCWB    | Percentage of catchment covered by water bodies                          | %                        |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
-| P25 | Dominant Land Cover                | DLC     | Dominant land cover type in the catchment                                | -                        |
+| P25 | Dominant Land Cover                | DLC     | Dominant land cover type in the catchment                                | X                        |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | P26 | Coarse Soil Composition            | COAR    | Mean percentage of coarse particles in the catchment soil                | %                        |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
