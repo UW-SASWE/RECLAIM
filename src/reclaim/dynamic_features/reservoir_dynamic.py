@@ -29,25 +29,29 @@ def reservoir_based_dynamic_features(
     surface area, evaporation, and sediment-related time series.
 
     Required time series keys (case-sensitive):
-    - "inflow":       Daily inflow in m³/day
-    - "outflow":      Daily outflow in m³/day
-    - "evaporation":  Daily evaporation in mm/day
-    - "surface_area": Reservoir surface area in km²
-    - "nssc":         Normalized suspended sediment concentration variant 1 (red/green) (dimensionless)
-    - "nssc2":        Normalized suspended sediment concentration variant 2 (near-infrared/red) (dimensionless)
+
+    - ``inflow``:       Daily inflow in m³/day
+    - ``outflow``:      Daily outflow in m³/day
+    - ``evaporation``:  Daily evaporation in mm/day
+    - ``surface_area``: Reservoir surface area in km²
+    - ``nssc``:         Normalized suspended sediment concentration variant 1 (red/green) (dimensionless)
+    - ``nssc2``:        Normalized suspended sediment concentration variant 2 (near-infrared/red) (dimensionless)
 
     Parameters
     ----------
     variable_info : dict
         Dictionary of input series metadata.
-        Each key corresponds to a variable (inflow, outflow, evaporation, surface_area, nssc, nssc2).
-        Each value is a dict with:
+        Each key corresponds to a variable (``inflow``, ``outflow``, ``evaporation``, ``surface_area``, ``nssc``, ``nssc2``).
+        Each value is a dict with the following structure::
+
             {
                 "path": str,          # Path to the CSV file
                 "time_column": str,   # Name of the datetime column
                 "data_column": str    # Name of the variable column
             }
-        Example:
+
+        Example::
+
             {
                 "inflow": {"path": "data/inflow.csv", "time_column": "date", "data_column": "inflow (m3/d)"},
                 "outflow": {"path": "data/outflow.csv", "time_column": "date", "data_column": "outflow (m3/d)"}
@@ -60,14 +64,14 @@ def reservoir_based_dynamic_features(
     -------
     pd.DataFrame
         A one-row DataFrame containing the computed reservoir dynamic features.
-        Missing variables in `variable_info` will result in NaN values for their features.
+        Missing variables in ``variable_info`` will result in NaN values for their features.
 
     Notes
     -----
     - All inflow/outflow metrics are converted to m³/s internally.
     - Surface area statistics are reported both for full record and clipped period.
     - NSSC statistics are dimensionless.
-    - If a variable is missing in `variable_info`, its corresponding features are NaN.
+    - If a variable is missing in ``variable_info``, its corresponding features are NaN.
     """
 
     # Define which features depend on which variable

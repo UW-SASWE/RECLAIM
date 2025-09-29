@@ -13,21 +13,26 @@ def compute_catchment_aggregate(
     function_type="mean"  # Can be 'mean', 'mode', 'std', 'percent' or dict
 ) -> pd.DataFrame:
     """
-    Compute catchment-based features by aggregating from raster variables in a NetCDF file
+    Compute catchment-based features by aggregating raster variables in a NetCDF file
     for a single catchment geometry.
 
     Parameters
     ----------
     netcdf_path : str or Path
         Path to the NetCDF file containing raster variables.
+
     catchment_geometry : shapely.geometry.Polygon or GeoSeries
         Catchment geometry (single polygon).
+
     function_type : str or dict, default="mean"
         Either a string ('mean', 'mode', 'std', 'percent') to apply to all variables,
-        or a dictionary specifying function(s) per variable. Example:
-            {"precip": "mean",
-             "slope": ["mean", "std"],
-             "landcover": {"type": "percent"}}
+        or a dictionary specifying function(s) per variable. Example::
+
+            {
+                "precip": "mean",
+                "slope": ["mean", "std"],
+                "landcover": {"type": "percent"}
+            }
 
     Returns
     -------

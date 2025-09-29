@@ -269,15 +269,25 @@ def create_continuous_linestring(a, b, geometry, resolution=0.01):
     """
     Create a continuous LineString between two points that lies entirely within a given geometry.
 
-    Parameters:
-    a (tuple): The coordinates of the first point (x, y).
-    b (tuple): The coordinates of the second point (x, y).
-    geometry (Polygon or MultiPolygon): The geometry within which the LineString should be created.
-    resolution (float): The resolution of the grid used for pathfinding (default is 0.5).
+    Parameters
+    ----------
+    a : tuple
+        The coordinates of the first point (x, y).
 
-    Returns:
-    LineString: A continuous LineString between points a and b that does not cross the exterior boundary of the geometry.
-                If it's not possible to create such a LineString, None is returned.
+    b : tuple
+        The coordinates of the second point (x, y).
+
+    geometry : shapely.geometry.Polygon or shapely.geometry.MultiPolygon
+        The geometry within which the LineString should be created.
+
+    resolution : float, optional
+        The resolution of the grid used for pathfinding. Default is 0.5.
+
+    Returns
+    -------
+    shapely.geometry.LineString or None
+        A continuous LineString between points `a` and `b` that does not cross the exterior
+        boundary of the geometry. If it is not possible to create such a LineString, `None` is returned.
     """
 
     # Ensure the geometry is oriented counter-clockwise
