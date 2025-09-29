@@ -7,12 +7,12 @@ Contents
 --------
 0. Overview
 1. Generating Features   
-  1.1 Single Reservoir   
-  1.2 Multiple Reservoirs   
+    - 1.1 Single Reservoir   
+    - 1.2 Multiple Reservoirs   
 2. Loading Pretrained RECLAIM Model   
 3. Making Predictions   
-  3.1 Predicting with Ensemble   
-  3.2 Using Base Models   
+    - 3.1 Predicting with Ensemble   
+    - 3.2 Using Base Models   
 4. Evaluating Predictions   
 5. Saving and Loading Custom Trained Models   
 6. Example Workflow   
