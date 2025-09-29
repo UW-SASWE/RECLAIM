@@ -1,7 +1,7 @@
 Feature Engineering
 ====================
 
-The performance of data-driven models such as machine learning depends strongly on the quality and relevance of the features used for training. To enhance the predictive capability of RECLAIM, we derived new features from the raw variables described in Section 2, a process commonly referred to as feature engineering. These derived features were designed to capture underlying processes relevant to reservoir sedimentation that are not directly represented in the raw variables. A summary of all derived features is provided in the below table. Please look out the table for the mentioned section for reference of used variables.
+The performance of data-driven models such as machine learning depends strongly on the quality and relevance of the features used for training. To enhance the predictive capability of RECLAIM, we derived new features from the raw variables described in Section 2, a process commonly referred to as feature engineering. These derived features were designed to capture underlying processes relevant to reservoir sedimentation that are not directly represented in the raw variables. A summary of all derived features is provided in the below table. Please look out the table for the mentioned section to refer used variables.
 
 +-----+---------------------------------------------+-------------------+-----------------------------------------------+----------------------------+--------------------------+
 | No  | Name                                        | Abbreviation      | Definition/Formula                            | Reference Table            | Units                    |
@@ -40,7 +40,7 @@ The performance of data-driven models such as machine learning depends strongly 
 +-----+---------------------------------------------+-------------------+-----------------------------------------------+----------------------------+--------------------------+
 | P78 | Ratio shrubs to bare soil                   | R_shrub_bare      | =LCS/LCBS                                     | static variables           | DL                       |
 +-----+---------------------------------------------+-------------------+-----------------------------------------------+----------------------------+--------------------------+
-| P79 | Ratio coarse to sand                        | R_coarse_sand     | =COAR/SAND                                    | Table 2.5                  | DL                       |
+| P79 | Ratio coarse to sand                        | R_coarse_sand     | =COAR/SAND                                    | static variables           | DL                       |
 +-----+---------------------------------------------+-------------------+-----------------------------------------------+----------------------------+--------------------------+
 | P80 | Relative mean annual surface area           | rel_SA_mean_clip  | =SA_mean_clip/RA                              | static & dynamic variables | DL                       |
 +-----+---------------------------------------------+-------------------+-----------------------------------------------+----------------------------+--------------------------+

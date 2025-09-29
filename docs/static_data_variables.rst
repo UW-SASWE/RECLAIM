@@ -1,4 +1,4 @@
-Static Data Variables
+Static Features
 ====================
 
 Static features in RECLAIM represent long-term physical, design, and catchment attributes of reservoirs that remain relatively constant over time. 
