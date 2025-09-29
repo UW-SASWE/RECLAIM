@@ -1,26 +1,17 @@
-RECLAIM
-=======
-
-.. toctree::
-   :maxdepth: 2
-   :caption: HOME:
-
-   home
-
-Overview
---------
-
-RECLAIM is a Python package to analyze reservoir sedimentation and capacity loss.
-It provides tools for static, dynamic, and derived feature calculation.
+.. include:: home.rst
+   :start-line: 0
 
 Contents
 --------
 
+.. toctree::
+   :maxdepth: 2
+   :caption: HOME
 
-Below is the documentation for all modules in the RECLAIM package.
+   home
 
 .. toctree::
    :maxdepth: 2
-   :caption: API Reference:
+   :caption: API Reference
 
    reclaim
