@@ -8,18 +8,18 @@ They include reservoir characteristics, catchment attributes, land cover, soil, 
 Reservoir and Catchment Attributes
 ----------------------------------
 
-The table below summarizes all static reservoir and catchment features used in RECLAIM.
+The table below summarizes all static reservoir and catchment features used in RECLAIM. OSY-OEY defines the period of sedimentation observed. DL stands for dimensionless.
 
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | No  | Name                               | Abbrev. | Description                                                              | Units                    |
 +=====+====================================+=========+==========================================================================+==========================+
-| D4  | Built Year                         | BY      | Year in which the construction of reservoir finished                     | -                        |
+| D4  | Built Year                         | BY      | Year in which the construction of reservoir finished                     | X                        |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | P1  | Original Built Capacity            | OBC     | Original design capacity of the reservoir                                | million cubic meter (MCM)|
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | P2  | Dam Height                         | HGT     | Height of the impoundment of the reservoir                               | meter                    |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
-| P3  | Major River Basin                  | MRB     | Name of the major river basin in which the reservoir is located          | -                        |
+| P3  | Major River Basin                  | MRB     | Name of the major river basin in which the reservoir is located          | X                        |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | P4  | Latitude                           | LAT     | Geographical latitude of the impoundment                                 | degree                   |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
@@ -84,8 +84,8 @@ The table below summarizes all static reservoir and catchment features used in R
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 | P34 | Aspect                             | ASP     | Mean orientation of slopes measured clockwise from north                 | degrees                  |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
-| P35 | Hillshade                          | HILL    | Mean relative illumination of terrain surface                            | -                        |
+| P35 | Hillshade                          | HILL    | Mean relative illumination of terrain surface                            | X                        |
 +-----+------------------------------------+---------+--------------------------------------------------------------------------+--------------------------+
 
 .. note::
-   Static features include attributes derived from reservoir polygons, catchment boundaries, and global datasets. While land cover can change over time, relative proportions are considered stable for modeling purposes. Dynamic changes in land use or sedimentation are addressed separately.
+   Static features include attributes derived from reservoir polygons, catchment boundaries, and global datasets. While land cover can change over time, relative proportions are considered stable for modeling purposes. Dynamic changes in land use or sedimentation are described in dynamic variables, though are calculated within static features in reclaim.
