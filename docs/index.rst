@@ -13,6 +13,15 @@ Contents
 
 .. toctree::
    :maxdepth: 2
+   :caption: Data Description
+
+   static_data_variables
+   dynamic_data_variables
+   feature_engineering_variables
+   feature_transformation_variables
+
+.. toctree::
+   :maxdepth: 2
    :caption: MODEL Description
 
    XGBoost

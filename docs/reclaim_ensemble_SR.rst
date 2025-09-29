@@ -19,14 +19,14 @@ Dynamic Ensemble Weighting
 To leverage complementary strengths of the models, RECLAIM uses a **dynamic weighting scheme** rather than a simple average:
 
 - **Below threshold (default SR = 15 MCM/year):**
-  - CatBoost weight: increases from 30% → 55%
-  - XGBoost weight: decreases from 45% → 25%
-  - LightGBM weight: slightly increases from 25% → 30%
+  - CatBoost weight: increases from 30% → 55%. 
+  - XGBoost weight: decreases from 45% → 25%. 
+  - LightGBM weight: slightly increases from 25% → 30%. 
 
 - **Above threshold:**
-  - CatBoost weight: fixed at 60%
-  - XGBoost weight: decreases from 15% → 5%
-  - LightGBM weight: increases from 25% → 35%
+  - CatBoost weight: fixed at 60%. 
+  - XGBoost weight: decreases from 15% → 5%. 
+  - LightGBM weight: increases from 25% → 35%. 
 
 Weights are smoothed using sigmoid functions to ensure gradual transitions. This scheme emphasizes the most reliable model in each regime while retaining contributions from all three algorithms.
 
@@ -34,7 +34,7 @@ Weights are smoothed using sigmoid functions to ensure gradual transitions. This
    :alt: RECLAIM ensemble predictions vs observed SR
    :align: center
 
-**Figure:** Residual patterns of individual models across validation data, and comparison of RECLAIM predictions with observed SR values (training, validation, and test sets).
+**Figure:** (a) Residual patterns of individual models across validation data, and (b) comparison of RECLAIM predictions with observed SR values (training, validation, and test sets).
 
 Performance
 ------------------
