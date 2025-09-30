@@ -1,6 +1,8 @@
 ![Reservoir Estimation of Capacity Loss using AI-based Methods](docs/_static/Reclaim_logo_clearBG.png)
 # Reservoir Estimation of Capacity Loss using AI-based Methods - RECLAIM
 
+**First-of-its-kind globally scalable tool to predict reservoir sedimentation, screen vulnerable reservoirs, and pinpoint those struggling the most.**
+
 **RECLAIM** (*Reservoir Estimation of Capacity Loss using AI-based Methods*) is a globally scalable machine learning framework to predict **absolute sedimentation rates** in reservoirs using observed records and multi-decadal satellite-based Earth observations.
 
 It is the **first-of-its-kind tool** to:
@@ -27,21 +29,6 @@ pip install reclaim
 
 The documentation is available [here](https://reclaimio.readthedocs.io/en/latest/).
 
----
-
-## Citation
-
-If you use RECLAIM in your work, please cite:
-
-> Minocha, S., Hossain, F., Zhao, J., & Istanbulluoglu, E.  
-> *RECLAIM: A Scalable Machine Learning Framework to Predict Global Reservoir Sedimentation and Capacity Loss from Satellite-based Earth Observations* (Submitted to *Environmental Modelling and Software (EMS)*).
-
----
-
-## License
-
-RECLAIM 3.0 is distributed under the **GPL v3 license**. You may copy, distribute, and modify the software as long as you track changes/dates in source files. Any modifications or software including GPL-licensed code must also be made available under GPL along with build & install instructions.  
-For more information, see [LICENSE](./LICENSE).
 
 ---
 
@@ -96,3 +83,19 @@ y_true = [...]  # replace with true sedimentation rates
 metrics = model.evaluate(features, y_true)
 print(metrics)  # {'RMSE': ..., 'MAE': ..., 'R2': ...}
 ```
+
+---
+
+## Citation
+
+If you use RECLAIM in your work, please cite:
+
+> Minocha, S., Hossain, F., Zhao, J., & Istanbulluoglu, E.  
+> *RECLAIM: A Globally Scalable Machine Learning Framework to Predict Reservoir Sedimentation and Capacity Loss from Satellite-based Earth Observations* (Submitted to *Environmental Modelling and Software (EMS)*).
+
+---
+
+## License
+
+RECLAIM 3.0 is distributed under the **GPL v3 license**. You may copy, distribute, and modify the software as long as you track changes/dates in source files. Any modifications or software including GPL-licensed code must also be made available under GPL along with build & install instructions.  
+For more information, see [LICENSE](./LICENSE).
