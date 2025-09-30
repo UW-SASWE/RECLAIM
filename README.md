@@ -1,6 +1,5 @@
 ![Reservoir Estimation of Capacity Loss using AI-based Methods](docs/_static/Reclaim_logo_clearBG.png)
-# RECLAIM
-[![Documentation Status](https://reclaimio.readthedocs.io/en/latest/home.html)](https://reclaimio.readthedocs.io/en/latest/home.html)
+# Reservoir Estimation of Capacity Loss using AI-based Methods - RECLAIM
 
 **RECLAIM** (*Reservoir Estimation of Capacity Loss using AI-based Methods*) is a globally scalable machine learning framework to predict **absolute sedimentation rates** in reservoirs using observed records and multi-decadal satellite-based Earth observations.
 
@@ -21,6 +20,12 @@ Install the package via pip:
 
 ```bash
 pip install reclaim
+```
+---
+
+## Documentation
+
+The documentation is available [here](https://reclaimio.readthedocs.io/en/latest/).
 
 ---
 
