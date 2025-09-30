@@ -21,6 +21,7 @@ Contents
    :maxdepth: 2
    :caption: Data Description
 
+   data_intro
    static_data_variables
    dynamic_data_variables
    feature_engineering_variables

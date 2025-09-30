@@ -29,8 +29,19 @@ Install the package via pip:
 ```bash
 pip install pyreclaim
 ```
----
 
+---
+## Download Data
+
+To generate features for reservoirs using the **RECLAIM** framework and the [`pyreclaim`](https://pypi.org/project/pyreclaim/) Python package, you will need the global datasets.  
+
+You can download all required global datasets from the Open Science Framework (OSF):  
+
+[Download Global Datasets](https://osf.io/xnq3c/)  
+
+These datasets include land cover, soil, terrain/DEM derivatives, and vegetation gain/loss data, which are essential for computing reservoir and catchment features for RECLAIM.
+
+---
 ## Documentation
 
 The documentation is available [here](https://reclaimio.readthedocs.io/en/latest/).
