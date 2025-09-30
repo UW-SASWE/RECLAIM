@@ -42,7 +42,7 @@ The following **global datasets** are used to generate features for RECLAIM:
 - `veg_gain_loss_1960_2019.nc` – Vegetation gain/loss from 1960–2019  
 
 These datasets can be **downloaded from OSF**:  
-`[Download Global Datasets](https://osf.io/xnq3c/)`
+`Download Global Datasets<https://doi.org/10.5281/zenodo.17230533>`_
 
 Model Development Data
 ----------------------

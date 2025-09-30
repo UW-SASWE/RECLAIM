@@ -37,7 +37,7 @@ To generate features for reservoirs using the **RECLAIM** framework and the [`py
 
 You can download all required global datasets from the Open Science Framework (OSF):  
 
-[Download Global Datasets](https://osf.io/xnq3c/)  
+[Download Global Datasets](https://doi.org/10.5281/zenodo.17230533)  
 
 These datasets include land cover, soil, terrain/DEM derivatives, and vegetation gain/loss data, which are essential for computing reservoir and catchment features for RECLAIM.
 
