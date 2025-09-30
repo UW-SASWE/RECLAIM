@@ -3,7 +3,7 @@
 </div>
 
 
-# Reservoir Estimation of Capacity Loss using AI-based Methods - RECLAIM
+# Reservoir Estimation of Capacity Loss using AI-based Methods (RECLAIM)
 
 ---
 
