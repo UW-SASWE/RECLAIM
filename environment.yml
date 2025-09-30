@@ -1,0 +1,19 @@
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - numpy
+  - pandas
+  - geopandas
+  - networkx
+  - shapely
+  - regionmask
+  - xarray
+  - scipy
+  - scikit-learn
+  - joblib
+  - yaml
+  - joblib
+  - xgboost
+  - lightgbm
+  - catboost 

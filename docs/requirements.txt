@@ -8,3 +8,8 @@ shapely
 regionmask
 xarray
 scipy
+scikit-learn
+joblib
+xgboost
+lightgbm
+catboost
