@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "reclaim"
+name = "pyreclaim"
 version = "develop"
 authors = [
   { name="Sanchit Minocha", email="msanchit@uw.edu" },

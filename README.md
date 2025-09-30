@@ -1,4 +1,4 @@
-![Reservoir Estimation of Capacity Loss using AI-based Methods](docs/_static/Reclaim_logo_clearBG.png)
+![Reservoir Estimation of Capacity Loss using AI-based Methods](https://github.com/UW-SASWE/RECLAIM/blob/main/docs/_static/Reclaim_logo_clearBG.png)
 # Reservoir Estimation of Capacity Loss using AI-based Methods - RECLAIM
 
 **First-of-its-kind globally scalable tool to predict reservoir sedimentation, screen vulnerable reservoirs, and pinpoint those struggling the most.**
@@ -21,7 +21,7 @@ It is the **first-of-its-kind tool** to:
 Install the package via pip:
 
 ```bash
-pip install reclaim
+pip install pyreclaim
 ```
 ---
 
