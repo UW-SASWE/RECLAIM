@@ -20,16 +20,19 @@ html_theme = "sphinx_rtd_theme"
 html_logo = "_static/Reclaim_logo_clearBG.png"
 
 # HTML copyright with links
-copyright = (
-    'Written and maintained by <a href="https://www.linkedin.com/in/sanchitminochaiitr/">Sanchit Minocha</a>. '
-    '&copy; 2023, <a href="https://saswe.net/">University of Washington SASWE Research Group</a>'
-)
-
-# If you want more control, you can use html_context (used by some themes)
 html_context = {
-    'display_github': False,
-    'last_updated': True,
+    "footer_custom": """
+        <p style="text-align:center; font-size:0.9em;">
+        Written and maintained by <a href="https://www.linkedin.com/in/sanchitminochaiitr/">Sanchit Minocha</a> |
+        &copy; 2023, <a href="https://saswe.net/">University of Washington SASWE Research Group</a>
+        </p>
+    """
 }
+
+# Then, in conf.py, add a small JS snippet to inject it at the bottom of the body
+html_js_files = [
+    'footer.js',  # you will create this in _static
+]
 
 # -- Optional: LaTeX output (for PDF) --------------------------------------
 latex_elements = {
