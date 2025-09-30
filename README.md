@@ -1,4 +1,6 @@
-![Reservoir Estimation of Capacity Loss using AI-based Methods](https://github.com/UW-SASWE/RECLAIM/blob/main/docs/_static/Reclaim_logo_clearBG.png)
+<div align="center">
+  <img src="https://github.com/UW-SASWE/RECLAIM/raw/main/docs/_static/Reclaim_logo_clearBG.png" alt="Reservoir Estimation of Capacity Loss using AI-based Methods" width="500"/>
+</div>
 # Reservoir Estimation of Capacity Loss using AI-based Methods - RECLAIM
 
 **First-of-its-kind globally scalable tool to predict reservoir sedimentation, screen vulnerable reservoirs, and pinpoint those struggling the most.**
