@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import xarray as xr
+import rioxarray
 import geopandas as gpd
 import regionmask
 from collections import Counter

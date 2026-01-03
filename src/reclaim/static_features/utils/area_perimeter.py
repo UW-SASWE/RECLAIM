@@ -33,4 +33,4 @@ def calculate_length_area_meters(geometry, area= True):
         area_square_meters = scaled_geometry.area
         return length_meters, area_square_meters
     else:
-        return length_meters[0]
+        return length_meters

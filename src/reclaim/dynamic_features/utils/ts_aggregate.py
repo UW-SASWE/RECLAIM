@@ -37,6 +37,12 @@ def compute_ts_aggregate(
     df = pd.read_csv(ts_csv_path)
     if df.empty:
         raise ValueError(f"CSV at {ts_csv_path} is empty.")
+    
+    # Ensure columns exist
+    if time_column not in df.columns:
+        raise ValueError(f"Time column '{time_column}' not found in CSV.")
+    if value_column not in df.columns:
+        raise ValueError(f"Value column '{value_column}' not found in CSV.")
 
     # Ensure time column is datetime
     df[time_column] = pd.to_datetime(df[time_column], errors='coerce')

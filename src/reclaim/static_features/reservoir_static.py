@@ -1,5 +1,6 @@
 import pandas as pd
 from shapely.geometry import Point, Polygon
+import numpy as np
 
 # Import utils
 from reclaim.static_features.utils.flow_length import find_actual_flow_path
@@ -13,6 +14,7 @@ def reservoir_based_static_features(
     mrb: str = None,
     lat: float = None,
     lon: float = None,
+    by: int = None,
     reservoir_polygon: Polygon = None,
     inlet_point: Point = None,
     resolution: float = None,
@@ -33,6 +35,8 @@ def reservoir_based_static_features(
         Latitude of dam location (degrees).
     lon : float, optional
         Longitude of dam location (degrees).
+    by : int, optional
+        Build year of the reservoir.
     reservoir_polygon : shapely.geometry.Polygon, optional
         Reservoir polygon geometry used to compute area and perimeter.
     dam_point : shapely.geometry.Point, optional
@@ -53,6 +57,7 @@ def reservoir_based_static_features(
         - MRB: Major River Basin
         - LAT: Latitude (deg)
         - LON: Longitude (deg)
+        - BY: Build Year
         - RA: Reservoir Area (sq km)
         - RP: Reservoir Perimeter (km)
         - FL: Flow Length (km)
@@ -67,6 +72,7 @@ def reservoir_based_static_features(
         "MRB": mrb,
         "LAT": lat,
         "LON": lon,
+        "BY": by,
         "RA": None,
         "RP": None,
         "FL": None,
@@ -85,8 +91,12 @@ def reservoir_based_static_features(
     dam_point = Point(lon, lat)
     if dam_point is not None and reservoir_polygon is not None:
         _, _, features["FL"], _ = (
-            find_actual_flow_path(dam_point, reservoir_polygon, inlet_point, resolution) / 1e3
-        )  # m → km
+            find_actual_flow_path(dam_point, reservoir_polygon, inlet_point, resolution) 
+        )  
+        if features["FL"]: 
+            features["FL"] = calculate_length_area_meters(features["FL"], area=False) / 1e3  # m → km
+        else:
+            features["FL"] = np.nan
 
     # AEC metrics
     if aec_df is not None:
