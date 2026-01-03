@@ -35,7 +35,7 @@ pip install pyreclaim
 
 To generate features for reservoirs using the **RECLAIM** framework and the [`pyreclaim`](https://pypi.org/project/pyreclaim/) Python package, you will need the global datasets.  
 
-You can download all required global datasets from the Open Science Framework (OSF):  
+You can download all required global datasets from the Zenodo Repository:  
 
 [Download Global Datasets](https://doi.org/10.5281/zenodo.17230533)  
 
@@ -61,7 +61,7 @@ from reclaim.reclaim import Reclaim
 reservoir_static = {
     "obc": 150.0,
     "hgt": 45.0,
-    "mrb": "Ganges",
+    "mrb": 4030033640,
     "lat": 25.6,
     "lon": 81.9,
     "reservoir_polygon": reservoir_polygon,
