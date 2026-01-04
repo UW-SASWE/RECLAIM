@@ -142,7 +142,8 @@ def reservoir_based_dynamic_features(
                     path, time_col, data_col, func, feat, obs_period
                 )
                 results[feat] = df_feat.iloc[0, 0]  # single value
-            except Exception:
+            except Exception as e:
+                print(f"Failed to compute {feat} due to error: {e}. Setting as NaN.")
                 results[feat] = np.nan
 
     return pd.DataFrame([results])

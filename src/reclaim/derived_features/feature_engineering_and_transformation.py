@@ -54,22 +54,28 @@ def engineer_and_transform_features(df: pd.DataFrame) -> pd.DataFrame:
         "SOUT": df["MAO"] * df["NSSC2_mean"],
     }
     
+    df = pd.concat([df, pd.DataFrame(feature_dict)], axis=1)
+
     # Land cover log-area features
     lc_cols = ['LCAS','LCC','LCG','LCT','LCS','LCHV','LCM','LCSV','LCBS','LCSG','LCWB']
     for col in lc_cols:
-        feature_dict[col] = df["CA"] * df[col] / 100
-    
-    df = pd.concat([df, pd.DataFrame(feature_dict)], axis=1)
-
+        df[col] = df["CA"] * df[col] / 100
+        
     # -------------------------
     # APPLY LOG TRANSFORMATIONS
     # -------------------------
     log_candidates = ['CA','DCA','OBC','HGT','RA','RP','FL',
                       'SA_mean','SA_mean_clip','SA_std','SA_kurt','PAI','MAI','MAO','I_std','O_std','MAR',
-                      'rain_per_area','GC','TE','ECLR','SIN','SOUT'] + lc_cols
+                      'ROBC','rain_per_area','GC','TE','RT','ECLR','ESR','SIN','SOUT'] + lc_cols
 
     for col in log_candidates:
         log_col = f'log_{col}'  # add prefix to avoid double log
-        df[log_col] = np.log(df[col].clip(lower=1e-15))
+        try:
+            df[log_col] = np.log(df[col].clip(lower=1e-15))
+        except Exception as e:
+            raise ValueError(f"Error applying log transform to column '{col}': {e}")
+    
+    # Process DLc as categorical column
+    df['DLC'] = df['DLC'].astype(int).fillna(0)
     
     return df

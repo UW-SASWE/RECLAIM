@@ -189,6 +189,8 @@ class Reclaim:
             if self.feature_order_list is not None:
                 # Reorder columns automatically
                 X = X[self.feature_order_list]
+                # for col in self.cat_features:
+                #     X[col] = X[col].astype("category")
         elif isinstance(X, np.ndarray):
             warnings.warn(
                     "Predicting with NumPy array: assumes column order matches training order. "
@@ -476,19 +478,21 @@ class Reclaim:
             load_dir = os.path.join(package_dir, "pretrained_model")
 
         # Load XGBoost
-        xgb_path = os.path.join(load_dir, f"{prefix}_xgb.json")
+        xgb_path = os.path.join(load_dir, f"{prefix}_xgb.pkl")
         if os.path.exists(xgb_path):
-            self.xgb_model = xgb.XGBRegressor()
-            self.xgb_model.load_model(xgb_path)
+            import xgboost as xgb
+            self.xgb_model = joblib.load(xgb_path)
 
         # Load LightGBM
-        lgb_path = os.path.join(load_dir, f"{prefix}_lgb.txt")
+        lgb_path = os.path.join(load_dir, f"{prefix}_lgb.pkl")
         if os.path.exists(lgb_path):
-            self.lgb_model = lgb.Booster(model_file=lgb_path)
+            import lightgbm as lgb
+            self.lgb_model = joblib.load(lgb_path)
 
         # Load CatBoost
         cat_path = os.path.join(load_dir, f"{prefix}_cat.cbm")
         if os.path.exists(cat_path):
+            from catboost import CatBoostRegressor
             self.cat_model = CatBoostRegressor()
             self.cat_model.load_model(cat_path)
 

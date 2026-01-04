@@ -12,17 +12,24 @@ from reclaim.derived_features.feature_engineering_and_transformation import engi
 
 
 def create_features_per_row(
+    idx: int,
+    observation_period: List[int],
     reservoir_static_params: dict,
     catchment_static_params: dict,
     reservoir_dynamic_info: dict = None,
     catchment_dynamic_info: dict = None,
-    observation_period: List[int] = None
 ) -> pd.DataFrame:
     """
     Compute all static, dynamic, and derived features for a single reservoir observation.
 
     Parameters
     ----------
+    idx : int
+        Index of the reservoir sedimentation observation (for tracking/logging purposes).
+    
+    observation_period : list of int
+        Two-element list [OSY, OEY] for observation start year and end year.
+        
     reservoir_static_params : dict
         Parameters for reservoir_based_static_features(). Expected keys:
             - obc : float, Original Built Capacity (MCM)
@@ -30,6 +37,7 @@ def create_features_per_row(
             - mrb : str, Major River Basin, optional
             - lat : float, Latitude (deg)
             - lon : float, Longitude (deg)
+            - by : int, Build Year
             - reservoir_polygon : shapely.geometry.Polygon
             - inlet_point : shapely.geometry.Point, optional
             - resolution : float, optional
@@ -61,9 +69,6 @@ def create_features_per_row(
             - "tmax":   {"path": str, "time_column": str, "data_column": str}
             - "wind":   {"path": str, "time_column": str, "data_column": str}
 
-    observation_period : list of int, optional
-        Two-element list [OSY, OEY] for observation start year and end year.
-
     Returns
     -------
     pd.DataFrame
@@ -74,6 +79,14 @@ def create_features_per_row(
         - Catchment dynamic
         - Derived/log-transformed
     """
+    
+    # --- Observevation period features ---
+    osy, oey = observation_period
+    df_obs_period = pd.DataFrame({
+        "idx": [idx],
+        "OSY": [osy],
+        "OEY": [oey]
+    })
 
     # --- Static features ---
     df_res_static = reservoir_based_static_features(**reservoir_static_params)
@@ -88,9 +101,9 @@ def create_features_per_row(
 
     if catchment_dynamic_info is not None and observation_period is not None:
         df_catch_dyn = catchment_based_dynamic_features(catchment_dynamic_info, observation_period)
-
+    
     # --- Combine all static + dynamic ---
-    df_combined = pd.concat([df_res_static, df_catch_static, df_res_dyn, df_catch_dyn], axis=1)
+    df_combined = pd.concat([df_obs_period, df_res_static, df_catch_static, df_res_dyn, df_catch_dyn], axis=1)
 
     # --- Engineer + log-transform features ---
     df_final = engineer_and_transform_features(df_combined)
@@ -109,6 +122,10 @@ def create_features_multi(
     reservoirs_input : list of dict
         Each element should be a dictionary with the following keys:
         
+        - `idx` : int
+            Index of the reservoir sedimentation observation.
+        - `observation_period` : list of int
+            Two-element list `[OSY, OEY]` specifying the observation period.
         - `reservoir_static_params` : dict
             Parameters for `reservoir_based_static_features()`.
         - `catchment_static_params` : dict
@@ -117,8 +134,7 @@ def create_features_multi(
             Parameters for `reservoir_based_dynamic_features()`.
         - `catchment_dynamic_info` : dict
             Parameters for `catchment_based_dynamic_features()`.
-        - `observation_period` : list of int
-            Two-element list `[OSY, OEY]` specifying the observation period.
+        
 
     Returns
     -------
@@ -129,11 +145,12 @@ def create_features_multi(
     all_rows = []
     for idx, reservoir_info in enumerate(reservoirs_input):
         df_row = create_features_per_row(
+            idx=reservoir_info.get("idx"),
+            observation_period=reservoir_info.get("observation_period"),
             reservoir_static_params=reservoir_info.get("reservoir_static_params", {}),
             catchment_static_params=reservoir_info.get("catchment_static_params", {}),
             reservoir_dynamic_info=reservoir_info.get("reservoir_dynamic_info", None),
             catchment_dynamic_info=reservoir_info.get("catchment_dynamic_info", None),
-            observation_period=reservoir_info.get("observation_period", None),
         )
         all_rows.append(df_row)
 

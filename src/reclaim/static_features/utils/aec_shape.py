@@ -94,8 +94,8 @@ def concavity_index(df: pd.DataFrame) -> float:
     line = np.linspace(0, 1, len(area_norm))
 
     # Area under actual curve vs line
-    auc_curve = np.trapz(elev_norm, area_norm)
-    auc_line = np.trapz(line, area_norm)
+    auc_curve = np.trapezoid(elev_norm, area_norm)
+    auc_line = np.trapezoid(line, area_norm)
 
     concavity = auc_curve / auc_line if auc_line > 0 else np.nan
     return concavity

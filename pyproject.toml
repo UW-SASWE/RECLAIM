@@ -30,6 +30,10 @@ dependencies = [
     "xgboost",
     "lightgbm",
     "catboost",
+    "openpyxl",
+    "netcdf4",
+    "dask",
+    "rioxarray"
 ]
 
 [project.urls]
