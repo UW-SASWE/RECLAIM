@@ -1,9 +1,10 @@
 import pandas as pd
+import geopandas as gpd
 from shapely.geometry import Point, Polygon
 import numpy as np
 
 # Import utils
-from reclaim.static_features.utils.flow_length import find_actual_flow_path
+from reclaim.static_features.utils.flow_length import find_actual_flow_path, plot_flow_length_with_reservoir
 from reclaim.static_features.utils.area_perimeter import calculate_length_area_meters
 from reclaim.static_features.utils.aec_shape import concavity_index, mean_curvature, mean_slope
 
@@ -18,7 +19,8 @@ def reservoir_based_static_features(
     reservoir_polygon: Polygon = None,
     inlet_point: Point = None,
     resolution: float = None,
-    aec_df: pd.DataFrame = None
+    aec_df: pd.DataFrame = None,
+    savepath_flowpath_fig: str = None,
 ) -> pd.DataFrame:
     """
     Compute reservoir-based features for RECLAIM input dataset.
@@ -47,6 +49,8 @@ def reservoir_based_static_features(
         Spatial resolution used in flow length calculations.
     aec_df : pd.DataFrame, optional
         Area-Elevation Curve dataframe with columns ['area', 'elevation'].
+    savepath_flowpath_fig : str, optional
+        Path to save the flow path figure, optional.
     
     Returns
     -------
@@ -82,26 +86,51 @@ def reservoir_based_static_features(
     }
 
     # Area and Perimeter
-    if reservoir_polygon is not None:
+    if reservoir_polygon is not None and not reservoir_polygon.is_empty:
         features["RP"], features["RA"] = calculate_length_area_meters(reservoir_polygon, area=True)
         features["RA"] = features["RA"] / 1e6  # m2 → km2
         features["RP"] = features["RP"] / 1e3  # m → km
+    else:
+        features["RP"] = np.nan
+        features["RA"] = np.nan
 
     # Flow Length
     dam_point = Point(lon, lat)
-    if dam_point is not None and reservoir_polygon is not None:
-        _, _, features["FL"], _ = (
-            find_actual_flow_path(dam_point, reservoir_polygon, inlet_point, resolution) 
-        )  
-        if features["FL"]: 
-            features["FL"] = calculate_length_area_meters(features["FL"], area=False) / 1e3  # m → km
-        else:
-            features["FL"] = np.nan
+    if dam_point is not None and reservoir_polygon is not None and not reservoir_polygon.is_empty:
+        try:
+            simplified_reservoir, far_end_point, flow_path, _ = (
+                find_actual_flow_path(dam_point, reservoir_polygon, inlet_point, resolution) 
+            )
+            if savepath_flowpath_fig is not None:
+                plot_flow_length_with_reservoir(
+                    dam_point,
+                    reservoir_polygon,
+                    far_end_point,
+                    flow_path,
+                    simplified_reservoir,
+                    savepath_flowpath_fig
+                )  
+            if flow_path is not None: 
+                gseries = gpd.GeoSeries([flow_path], crs="EPSG:4326")
+                gseries = gseries.to_crs(epsg=3395)
 
+                features["FL"] = gseries.length.iloc[0] / 1e3 # m → km  
+            else:
+                features["FL"] = np.nan
+        except Exception as e:
+            print(f"Flow length calculation failed: {e}")
+            features["FL"] = np.nan
+    else:
+        features["FL"] = np.nan
+    
     # AEC metrics
-    if aec_df is not None:
+    if isinstance(aec_df, pd.DataFrame) and not aec_df.empty:
         features["AECS"] = mean_slope(aec_df)
         features["AECC"] = mean_curvature(aec_df)
         features["AECI"] = concavity_index(aec_df)
+    else:
+        features["AECS"] = np.nan
+        features["AECC"] = np.nan
+        features["AECI"] = np.nan
 
     return pd.DataFrame([features])

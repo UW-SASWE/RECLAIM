@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
-from typing import Dict, Sequence, Union, Callable
+from typing import Dict, Sequence, Union, Callable, List
 
 from reclaim.dynamic_features.utils.statistical_metrics import (
     annual_mean,
@@ -18,11 +18,53 @@ from reclaim.dynamic_features.utils.inflow_outflow import (
     max_annual_flow_m3_per_s,
     mean_annual_flow_variability
 )
-from reclaim.dynamic_features.utils.ts_aggregate import compute_ts_aggregate
+from reclaim.dynamic_features.utils.ts_aggregate import compute_ts_aggregates
+
+# Define which features depend on which variable
+VARIABLE_FEATURES = {
+    "inflow": {
+        "MAI": mean_annual_flow_m3_per_s,
+        "PAI": max_annual_flow_m3_per_s,
+        "I_cv": mean_annual_flow_variability,
+        "I_std": mean_annual_flow_std_m3_per_s,
+        "I_above_90": max_days_above_90th,
+        "I_max_persis": max_annual_persistence,
+    },
+    "outflow": {
+        "MAO": mean_annual_flow_m3_per_s,
+        "O_std": mean_annual_flow_std_m3_per_s,
+        "O_cv": mean_annual_flow_variability,
+    },
+    "evaporation": {
+        "E_mean": annual_mean,
+        "E_std": annual_std,
+    },
+    "surface_area": {
+        "SA_mean": annual_mean,
+        "SA_std": annual_std,
+        "SA_cv": coefficient_of_variation,
+        "SA_skew": skewness,
+        "SA_kurt": kurtosis_val,
+        "SA_mean_clip": annual_mean,
+        "SA_above_90": max_days_above_90th,
+    },
+    "nssc": {
+        "NSSC1_mean": annual_mean,
+        "NSSC1_std": annual_std,
+        "NSSC1_cv": coefficient_of_variation,
+        "NSSC1_skew": skewness,
+        "NSSC1_kurt": kurtosis_val,
+    },
+    "nssc2": {
+        "NSSC2_mean": annual_mean,
+        "NSSC2_above_90": max_days_above_90th,
+        "NSSC2_max_persis": max_annual_persistence,
+    },
+}
 
 def reservoir_based_dynamic_features(
     variable_info: Dict[str, Dict[str, str]],
-    observation_period: Sequence[int],
+    observation_intervals: List[Sequence[int]]
 ) -> pd.DataFrame:
     """
     Compute dynamic reservoir features for a single reservoir using inflow, outflow,
@@ -57,13 +99,13 @@ def reservoir_based_dynamic_features(
                 "outflow": {"path": "data/outflow.csv", "time_column": "date", "data_column": "outflow (m3/d)"}
             }
 
-    observation_period : sequence[int]
-        Two-element sequence [OSY, OEY] specifying the observation period to clip the series.
+    observation_intervals : list of list of int
+        List of [start_year, end_year] intervals to compute features over.
 
     Returns
     -------
     pd.DataFrame
-        A one-row DataFrame containing the computed reservoir dynamic features.
+        A DataFrame containing as many rows as ``observation_intervals`` and columns corresponding to the computed reservoir dynamic features.
         Missing variables in ``variable_info`` will result in NaN values for their features.
 
     Notes
@@ -74,76 +116,31 @@ def reservoir_based_dynamic_features(
     - If a variable is missing in ``variable_info``, its corresponding features are NaN.
     """
 
-    # Define which features depend on which variable
-    variable_features = {
-        "inflow": {
-            "MAI": mean_annual_flow_m3_per_s,
-            "PAI": max_annual_flow_m3_per_s,
-            "I_cv": mean_annual_flow_variability,
-            "I_std": mean_annual_flow_std_m3_per_s,
-            "I_above_90": max_days_above_90th,
-            "I_max_persis": max_annual_persistence,
-        },
-        "outflow": {
-            "MAO": mean_annual_flow_m3_per_s,
-            "O_std": mean_annual_flow_std_m3_per_s,
-            "O_cv": mean_annual_flow_variability,
-        },
-        "evaporation": {
-            "E_mean": annual_mean,
-            "E_std": annual_std,
-        },
-        "surface_area": {
-            "SA_mean": annual_mean,
-            "SA_std": annual_std,
-            "SA_cv": coefficient_of_variation,
-            "SA_skew": skewness,
-            "SA_kurt": kurtosis_val,
-            "SA_mean_clip": annual_mean,
-            "SA_above_90": max_days_above_90th,
-        },
-        "nssc": {
-            "NSSC1_mean": annual_mean,
-            "NSSC1_std": annual_std,
-            "NSSC1_cv": coefficient_of_variation,
-            "NSSC1_skew": skewness,
-            "NSSC1_kurt": kurtosis_val,
-        },
-        "nssc2": {
-            "NSSC2_mean": annual_mean,
-            "NSSC2_above_90": max_days_above_90th,
-            "NSSC2_max_persis": max_annual_persistence,
-        },
-    }
-
-    results = {}
+    all_vars = []
 
     # Loop through required variables
-    for var, feat_dict in variable_features.items():
+    for var, feat_dict in VARIABLE_FEATURES.items():
         if var not in variable_info:
-            # Fill with NaN if variable not provided
-            for feat in feat_dict.keys():
-                results[feat] = np.nan
+            all_vars.append(
+                pd.DataFrame(np.nan, index=range(len(observation_intervals)),
+                             columns=feat_dict.keys())
+            )
             continue
 
         path = variable_info[var]["path"]
         time_col = variable_info[var]["time_column"]
         data_col = variable_info[var]["data_column"]
+        try:
+            df_var = compute_ts_aggregates(
+                ts_csv_path=path,
+                time_column=time_col,
+                value_column=data_col,
+                feature_functions=feat_dict,
+                intervals=observation_intervals,
+            )
+            all_vars.append(df_var)
+        except Exception:
+            df_var = pd.DataFrame()
+            all_vars.append(df_var)
 
-        # Some features require clipping, others use full record
-        for feat, func in feat_dict.items():
-            if var == "surface_area" and feat in ["SA_mean", "SA_std", "SA_cv", "SA_skew", "SA_kurt"]:
-                obs_period = None  # full record
-            else:
-                obs_period = observation_period
-
-            try:
-                df_feat = compute_ts_aggregate(
-                    path, time_col, data_col, func, feat, obs_period
-                )
-                results[feat] = df_feat.iloc[0, 0]  # single value
-            except Exception as e:
-                print(f"Failed to compute {feat} due to error: {e}. Setting as NaN.")
-                results[feat] = np.nan
-
-    return pd.DataFrame([results])
+    return pd.concat(all_vars, axis=1)

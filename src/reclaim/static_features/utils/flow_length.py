@@ -2,6 +2,9 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 import networkx as nx  # NetworkX library import
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
 
 from shapely.geometry import shape, Point, LineString, Polygon, GeometryCollection, MultiLineString, MultiPolygon
 from shapely.ops import transform, split, linemerge, unary_union
@@ -453,3 +456,64 @@ def find_actual_flow_path(dam_point, reservoir_polygon, inlet_point=None, resolu
     path, graph = create_continuous_linestring(dam_point,far_end_point, simplified_reservoir, optimal_resolution)
 
     return simplified_reservoir,far_end_point, path, graph
+
+def plot_flow_length_with_reservoir(dam, reservoir, farthest_point, actual_flow_path, simplified_reservoir, save_path):
+    fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+
+    # Define plot elements
+    geoms = {
+        "Dam Point": {"geometry": dam, "color": "green", "marker": "^"},
+        "Reservoir": {"geometry": reservoir, "color": "aqua", "edgecolor": "#00008B"},
+        "Farthest Point": {"geometry": farthest_point, "color": "red", "marker": "x"},
+        "Flow Path": {"geometry": actual_flow_path, "color": "blue"},
+    }
+
+    geoms_simplified = {
+        "Dam Point": {"geometry": dam, "color": "green", "marker": "^"},
+        "Reservoir (Simplified)": {"geometry": simplified_reservoir, "color": "aqua", "edgecolor": "#00008B"},
+        "Farthest Point": {"geometry": farthest_point, "color": "red", "marker": "x"},
+        "Flow Path": {"geometry": actual_flow_path, "color": "blue"},
+    }
+
+    # Plot original
+    for label, item in geoms.items():
+        gdf = gpd.GeoDataFrame(geometry=[item["geometry"]])
+        if item["geometry"].geom_type == "Point":
+            gdf.plot(ax=ax[0], color=item["color"], marker=item.get("marker", "o"), zorder=3, markersize=90)
+        elif item["geometry"].geom_type == "Polygon" or item["geometry"].geom_type == "MultiPolygon":
+            gdf.plot(ax=ax[0], color=item["color"], edgecolor=item['edgecolor'], zorder=1)
+        else:
+            gdf.plot(ax=ax[0], color=item["color"],zorder=2)
+
+    # Plot simplified
+    for label, item in geoms_simplified.items():
+        gdf = gpd.GeoDataFrame(geometry=[item["geometry"]])
+        if item["geometry"].geom_type == "Point":
+            gdf.plot(ax=ax[1], color=item["color"], marker=item.get("marker", "o"), zorder=3, markersize=90)
+        elif item["geometry"].geom_type == "Polygon" or item["geometry"].geom_type == "MultiPolygon":
+            gdf.plot(ax=ax[1], color=item["color"], edgecolor=item['edgecolor'], zorder=1)
+        else:
+            gdf.plot(ax=ax[1], color=item["color"], zorder=2)
+
+    # Custom handles
+    custom_handles = [
+        Line2D([0], [0], marker='^', color='w', label='Dam', markerfacecolor='green', markersize=12),
+        Patch(facecolor='aqua', edgecolor='#00008B', label='Reservoir'),
+        Line2D([0], [0], marker='x', color='red', label='Reservoir inlet', markersize=8),
+        Line2D([0], [0], color='blue', lw=2, label='Shortest Flow Path')
+    ]
+
+    # Set axis labels and titles
+    for a in ax:
+        a.set_xlabel("Longitude")
+        a.set_ylabel("Latitude")
+    ax[0].set_title('Original Geometry')
+    ax[1].set_title('Simplified Geometry')
+
+    # Add one shared legend
+    fig.legend(handles=custom_handles, loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.05))
+
+    plt.tight_layout()
+    plt.savefig(save_path, bbox_inches='tight', dpi=300)
+    plt.close()
+    
