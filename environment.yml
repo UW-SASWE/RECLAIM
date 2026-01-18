@@ -16,4 +16,10 @@ dependencies:
   - joblib
   - xgboost
   - lightgbm
-  - catboost 
+  - catboost
+  - openpyxl
+  - netcdf4
+  - dask
+  - rioxarray
+  - matplotlib
+  - tqdm
