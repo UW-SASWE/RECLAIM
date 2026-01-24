@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from pandas.api.types import is_integer_dtype, is_string_dtype
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import  r2_score, mean_absolute_error,  root_mean_squared_error
@@ -196,6 +197,14 @@ class Reclaim:
                     "Predicting with NumPy array: assumes column order matches training order. "
                     "Safer to use DataFrame with feature names."
                 )
+            
+        if self.cat_features is not None:
+            for col in self.cat_features:
+                if not (is_integer_dtype(X[col]) or is_string_dtype(X[col])):
+                    raise ValueError(
+                        f"Column {col} must be integer or string type, "
+                        f"found {X[col].dtype}"
+                    )
             
             
         # Base model predictions
