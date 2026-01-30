@@ -93,13 +93,17 @@ def catchment_based_dynamic_features(
         time_col = variable_info[var]["time_column"]
         data_col = variable_info[var]["data_column"]
         
-        df_var = compute_ts_aggregates(
-            ts_csv_path=path,
-            time_column=time_col,
-            value_column=data_col,
-            feature_functions=feat_dict,
-            intervals=observation_intervals,
-        )
-        all_vars.append(df_var)
+        try:
+            df_var = compute_ts_aggregates(
+                ts_csv_path=path,
+                time_column=time_col,
+                value_column=data_col,
+                feature_functions=feat_dict,
+                intervals=observation_intervals,
+            )
+            all_vars.append(df_var)
+        except Exception:
+            df_var = pd.DataFrame()
+            all_vars.append(df_var)
 
     return pd.concat(all_vars, axis=1)
