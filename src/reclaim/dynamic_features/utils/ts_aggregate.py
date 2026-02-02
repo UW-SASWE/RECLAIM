@@ -1,13 +1,40 @@
 import pandas as pd
-from typing import Callable, Union, Sequence
+import numpy as np
+from pathlib import Path
+from typing import Callable, Union, Sequence, List, Dict
 
-def compute_ts_aggregate(
+FULL_RECORD_FEATURES = ["SA_mean", "SA_std", "SA_cv", "SA_skew", "SA_kurt", "NSSC2_max_persis"]
+
+def build_intervals(start_year, end_year, time_interval):
+    total_years = end_year - start_year + 1
+
+    # Case 1: Entire window shorter than interval
+    if total_years <= time_interval:
+        return [[start_year, end_year]]
+
+    remainder = total_years % time_interval
+    outputs = []
+
+    # First interval absorbs remainder (if any)
+    first_len = time_interval + remainder if remainder != 0 else time_interval
+    first_end = min(start_year + first_len - 1, end_year)
+    outputs.append([start_year, first_end])
+
+    # Remaining intervals
+    current_start = first_end + 1
+    while current_start <= end_year:
+        current_end = current_start + time_interval - 1
+        outputs.append([current_start, min(current_end, end_year)])
+        current_start = current_end + 1
+
+    return outputs
+
+def compute_ts_aggregates(
     ts_csv_path: str,
     time_column: str,
     value_column: str,
-    feature_function: Callable,
-    feature_name: str,
-    observation_period: Union[Sequence[int], None] = None
+    feature_functions: Dict[str, Callable],
+    intervals: List[Sequence[int]],
 ) -> pd.DataFrame:
     """
     Compute an aggregate feature from a user-provided time series CSV for a single reservoir.
@@ -20,20 +47,21 @@ def compute_ts_aggregate(
         Name of the column representing dates/timestamps.
     value_column : str
         Name of the column representing the variable values.
-    feature_function : Callable
-        Function that takes a pd.Series (the time series) and returns a single value.
-    feature_name : str
-        Name of the column to store the computed feature in the returned DataFrame.
-    observation_period : list or tuple of two ints, optional
-        [start_year, end_year] to clip the time series. If None, no clipping is applied.
+    feature_functions : Dict[str, Callable]
+        Dictionary where keys are feature names (column names for output DataFrame) and values are functions that take a pd.Series and return a single value.
+    intervals : list of list of int
+        List of [start_year, end_year] intervals to compute features over.
 
     Returns
     -------
     pd.DataFrame
         A single-row DataFrame containing the computed feature with the specified column name.
     """
-
-    # Load the CSV
+    # --- Read CSV ONCE ---
+    # Check if path exists 
+    if not Path(ts_csv_path).is_file():
+        raise FileNotFoundError(f"CSV file not found at path: {ts_csv_path}")
+        
     df = pd.read_csv(ts_csv_path)
     if df.empty:
         raise ValueError(f"CSV at {ts_csv_path} is empty.")
@@ -49,21 +77,28 @@ def compute_ts_aggregate(
     if df[time_column].isna().all():
         raise ValueError(f"Time column '{time_column}' could not be converted to datetime.")
 
-    # Set index
-    ts = df.set_index(time_column)[value_column]
+    # Set index 
+    ts = df.set_index(time_column)[value_column].sort_index()
+    
+    if ts.empty:
+        raise ValueError("Time series is completely empty. Please check the data or avoid providing this variable.")
 
-    # Clip to observation period if provided
-    if observation_period is not None:
-        start_year, end_year = observation_period
-        ts = ts[(ts.index.year >= start_year) & (ts.index.year <= end_year)]
+    rows = []
 
-    # Remove NaNs
-    ts_clean = ts.dropna()
-    if ts_clean.empty:
-        raise ValueError("Time series has no valid data after clipping/removing NaNs.")
+    for osy, oey in intervals:
+        ts_clip = ts[(ts.index.year >= osy) & (ts.index.year <= oey)]
+        ts_till_end_year = ts[ts.index.year <= oey]
 
-    # Apply user-defined feature function
-    feature_value = feature_function(ts_clean)
+        row = {}
+        for feat, func in feature_functions.items():
+            try:
+                if feat in FULL_RECORD_FEATURES:
+                    row[feat] = func(ts_till_end_year) if not ts_till_end_year.empty else np.nan
+                else:
+                    row[feat] = func(ts_clip) if not ts_clip.empty else np.nan
+            except Exception:
+                row[feat] = np.nan
 
-    # Return as single-row DataFrame with user-specified column name
-    return pd.DataFrame({feature_name: [feature_value]})
+        rows.append(row)
+
+    return pd.DataFrame(rows)

@@ -3,7 +3,7 @@ RECLAIM
 
 **First-of-its-kind globally scalable tool to predict reservoir sedimentation, screen vulnerable reservoirs, and pinpoint those struggling the most.**
 
-RECLAIM (*Reservoir Estimation of Capacity Loss using AI-based Methods*) is a globally scalable framework for predicting **absolute sedimentation rates** in reservoirs.  
+RECLAIM (*Reservoir Estimation of Capacity Loss using AI-based Methods*) is a globally scalable machine learning framework for predicting **absolute sedimentation rates** in reservoirs.  
 It integrates observed records with multi-decadal Earth observations from satellites to provide:
 
 - **Rapid assessment** of sedimentation risk  

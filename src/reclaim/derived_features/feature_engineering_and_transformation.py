@@ -1,6 +1,45 @@
 import pandas as pd
 import numpy as np
 
+ALL_FEATURES = [
+     'log_OBC', 'log_HGT', 'MRB', 'LAT', 'LON',
+     'log_RA', 'log_RP', 'log_FL',
+     'log_CA', 'log_DCA',
+     
+     'AECS', 'AECC','AECI',
+     
+     'log_LCAS', 'log_LCC',
+     'log_LCG', 'log_LCT', 'log_LCS',
+     'log_LCHV', 'log_LCM', 
+     'log_LCSV','log_LCBS', 
+     'log_LCSG', 'log_LCWB','DLC',
+     
+     'COAR', 'SAND', 'SILT', 'CLAY', 'BULK',
+     
+     'ELEV', 'SLOP', 'CURV', 'ASP', 'HILL',
+     
+     'log_MAI', 'log_PAI', 'I_cv',
+     'log_I_std','I_above_90', 'I_max_persis',
+     'log_MAO', 'log_O_std', 'O_cv',
+     'E_mean', 'E_std',
+     'log_SA_mean',  'log_SA_std', 'SA_cv', 'SA_skew', 'log_SA_kurt',
+     'log_SA_mean_clip', 'SA_above_90',
+     'NSSC1_mean', 'NSSC1_std', 'NSSC1_cv', 'NSSC1_skew', 'NSSC1_kurt', 
+     'NSSC2_mean', 'NSSC2_above_90', 'NSSC2_max_persis',
+     
+     'log_MAR', '#_rain_above_10', '#_rain_above_50', '#_rain_above_100',
+     'tmin_mean', 'tmax_mean',
+     'wind_mean', 'wind_std', 'wind_cv', 'wind_skew', 'wind_kurt', 
+     
+     'AGE', 'log_ROBC', 'log_GC',
+     'NVGF',
+     'R_tree_bare', 'R_shrub_bare', 'R_coarse_sand',
+     'log_rel_SA_mean_clip', 'log_R_SA_cap',
+     'log_rain_per_area',
+     'log_TE', 'log_RT', 'log_ECLR', 'ESR',
+     'log_SIN', 'log_SOUT',
+]
+
 def engineer_and_transform_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     Engineer and transform features in reservoir/catchment dataset.
@@ -58,24 +97,40 @@ def engineer_and_transform_features(df: pd.DataFrame) -> pd.DataFrame:
 
     # Land cover log-area features
     lc_cols = ['LCAS','LCC','LCG','LCT','LCS','LCHV','LCM','LCSV','LCBS','LCSG','LCWB']
-    for col in lc_cols:
-        df[col] = df["CA"] * df[col] / 100
+    # for col in lc_cols:
+    #     df[col] = df["CA"] * df[col] / 100
+    # Doing calculation along with taking log as done in model training. results will slightly differ for cases where percentage of LC is 0.
         
     # -------------------------
     # APPLY LOG TRANSFORMATIONS
     # -------------------------
     log_candidates = ['CA','DCA','OBC','HGT','RA','RP','FL',
                       'SA_mean','SA_mean_clip','SA_std','SA_kurt','PAI','MAI','MAO','I_std','O_std','MAR',
-                      'ROBC','rain_per_area','GC','TE','RT','ECLR','ESR','SIN','SOUT'] + lc_cols
+                      'ROBC','rain_per_area','GC','TE','RT','ECLR','SIN','SOUT', 'rel_SA_mean_clip', 'R_SA_cap'] + lc_cols
 
     for col in log_candidates:
         log_col = f'log_{col}'  # add prefix to avoid double log
         try:
-            df[log_col] = np.log(df[col].clip(lower=1e-15))
+            if col in ['ECLR','SIN','SOUT']:
+                # Land cover columns can be zero (upto 15 decimal places), clip at 1e-15
+                df[log_col] = np.log(df[col].clip(lower=1e-15))
+            elif col in ['rain_per_area']:
+                # Rain per area can be zero (upto 10 decimal places), clip at 1e-10
+                df[log_col] = np.log(df[col].clip(lower=1e-10))
+            elif col in lc_cols:
+                df[log_col] = np.log(df["CA"].clip(lower=1e-6)) + np.log(df[col].clip(lower=1e-6)) - np.log(100)
+            else:
+                # All other columns can be zero (upto 6 decimal places), clip at 1e-6
+                df[log_col] = np.log(df[col].clip(lower=1e-6))
         except Exception as e:
             raise ValueError(f"Error applying log transform to column '{col}': {e}")
     
     # Process DLc as categorical column
     df['DLC'] = df['DLC'].astype(int).fillna(0)
+    
+    # Add empty columns for any missing features
+    for feature in ALL_FEATURES:
+        if feature not in df.columns:
+            df[feature] = np.nan
     
     return df
