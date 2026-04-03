@@ -5,5 +5,6 @@ setup(
     name = "pyreclaim",
     version = "develop",
     license = "GPL-3.0",
-    package_dir = {"": "src"}
+    package_dir = {"": "src"},
+    include_package_data=True,
 )

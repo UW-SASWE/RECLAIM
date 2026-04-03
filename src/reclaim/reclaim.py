@@ -5,6 +5,7 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import  r2_score, mean_absolute_error,  root_mean_squared_error
 import joblib
+from importlib import resources
 
 # Model libraries
 import xgboost as xgb
@@ -146,7 +147,7 @@ class Reclaim:
         )
 
 
-    def predict(self, X, log_transform=True, dynamic_weight=True, threshold=30, sat_point=70, smooth_factor=0.2, return_weights=False):
+    def predict(self, X, log_transform=False, dynamic_weight=True, threshold=15, sat_point=70, smooth_factor=0.7, return_weights=False):
         """
         Predict using a stacked ensemble with dynamic, instance-wise weights using sigmoid scaling.
 
@@ -169,7 +170,7 @@ class Reclaim:
         X : pd.DataFrame or np.array
             Features for prediction.
         log_transform : bool
-            If True, apply log1p to stabilize high-value predictions.
+            If True, apply log1p to stabilize high-value predictions from the three models before ensemble.
         dynamic_weight : bool
             If True, use instance-wise weights based on CatBoost prediction.
         threshold : float
@@ -482,9 +483,7 @@ class Reclaim:
             Prefix for filenames.
         """
         if load_dir is None:
-            # Default: look inside the package directory
-            package_dir = os.path.dirname(__file__)  # folder of this file
-            load_dir = os.path.join(package_dir, "pretrained_model")
+            load_dir = resources.files("reclaim").joinpath("pretrained_model")
 
         # Load XGBoost
         xgb_path = os.path.join(load_dir, f"{prefix}_xgb.pkl")

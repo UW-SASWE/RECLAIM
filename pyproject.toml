@@ -41,3 +41,6 @@ dependencies = [
 [project.urls]
 "Homepage" = "https://github.com/UW-SASWE/RECLAIM"
 "Bug Tracker" = "https://github.com/UW-SASWE/RECLAIM/issues"
+
+[tool.setuptools]
+include-package-data = true
